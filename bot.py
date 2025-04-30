@@ -1,3 +1,4 @@
+import os
 from telegram import Update, Poll
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 import re
@@ -72,7 +73,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("MCQs भेजें — मैं उन्हें साफ करके Poll में बदल दूँगा, उत्तर व व्याख्या सहित।")
 
 def main():
-    app = ApplicationBuilder().token("YOUR_BOT_TOKEN_HERE").build()
+    TOKEN = os.getenv("BOT_TOKEN")
+    if not TOKEN:
+        print("Error: BOT_TOKEN environment variable not found.")
+        return
+
+    app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     print("बोट चालू है...")

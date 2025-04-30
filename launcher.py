@@ -1,9 +1,5 @@
-import subprocess
 import time
-
+import os
 while True:
-    print("बोट चालू हो रही है...")
-    process = subprocess.Popen(["python", "bot.py"])
-    process.wait()
-    print("बोट बंद हो गई। 5 सेकंड में रीस्टार्ट हो रही है...")
+    os.system('python bot.py')
     time.sleep(5)
